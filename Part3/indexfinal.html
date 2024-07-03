@@ -11,33 +11,29 @@
         stroke-opacity: 0;
         z-index: 1;
       }
-
       .tooltip {
         position: absolute;
         padding: 10px;
         color: black;
         display: block;
         opacity: 0.75;
+        font-family: sans-serif;
       }
-
       body, .wrapper {
         display: grid;
         grid-template-columns: 1fr minmax(250px, 25%);
       }
-
-      .sidebar {
+      .column-container {
         display: flex;
         flex-flow: column;
         height: 800 px;
       }
-      
       .logo {
         text-align: center;
         background-color: black;
         color: white;
         font-family: sans-serif;
       }
-
       .text-box {
         flex: 1;
         font-family: sans-serif;
@@ -45,7 +41,6 @@
         padding: 0px 6px;
         margin-top: 6px;
       }
-
       .adjust {
         color: white;
         background-color: black;
@@ -53,10 +48,59 @@
         padding: 4px 8px;
         margin-top: 6px;
       }
-
       .switch {
         background-color: white;
         border: 1px solid black;
+      }
+      .button {
+        background: white;
+        border: 1px solid black;
+        padding: 5px;
+        cursor: pointer;
+      }
+      .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: #302b25;
+        color: white;
+        font-family: sans-serif;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding: 30px 0px 220px 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        background-color: #302b25;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+      .sidebar a:hover {
+        color: #f1f1f1;
+      }
+      .close-sidebar {
+        background-color: #302b25;
+        color: white;
+        border: none;
+        text-align: left;
+        padding: 0px 24px;
+        font-size: 24px;
+      }
+      .sidebar p, h3 {
+        padding: 0px 24px;
+        margin: 0px;
+      }
+      .sidebar h3 {
+        font-size: 28px;
       }
     </style>
   </head>
@@ -67,7 +111,7 @@
         <div id="chart-container"></div>
         <div id="tooltip"></div>
       </main>
-      <div class="sidebar">
+      <div class="column-container">
         <h2 class="logo">AMP LOGO</h2>
         <div class="text-box">
           <h4>HOW DOES IT WORK?</h3>
@@ -97,11 +141,38 @@
         </div>
         <button class="adjust">Adjust your expectations</button>
       </div>
+      <div id="mySidebar" class="sidebar">
+        <!-- Content of the sidebar -->
+        <button class="close-sidebar" onclick="closeSidebar()">X Close</button>
+        <div class="text-container">
+          <p>
+          We estimate regional
+          EV production will reach
+          <h3>1,157,667
+            vehicles</h3></p>
+          <p>(that's 66.9% of demand)</p>
+        </div>
+        <div class="text-container">
+          <p>To power these will require
+          battery production totaling
+          <h3>86.62 GWh</h3></p>
+        </div>
+        <div class="text-container">
+          <p>This means we need to add
+          <h3>6 cell factories</h3></p>
+        </div>
+        <div class="text-container">
+          <p>Between EVs and batteries,
+          we'll need to build a regional
+          EV workforce numbering <h3>28,839 workers</h3></p>
+        </div>
+      </div>
+      <!-- <button onclick="openSidebar()">Open Sidebar</button> -->
     </div>
 
     <!-- Include the D3.js library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <!-- Include your custom script file -->
-    <script src="scriptfinal.js"></script>
+    <script src="scriptfinal copy.js"></script>
   </body>
 </html>
