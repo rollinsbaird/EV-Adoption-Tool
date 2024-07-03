@@ -224,6 +224,17 @@ d3.csv("vehicle registration.csv").then(data => {
       .attr("d", line);
   }
 
+  function addCircle(color, y_offset) {
+    const circle = svg.append("circle")
+    .attr("r", 7)
+    .attr("fill", color)
+    .attr("cy", -44)
+    .attr("cx", 580.7672826830938 + 52)
+    .style("stroke", "white")
+    .attr("opacity", .70)
+    .style("pointer-events", "none");
+  }
+
   // Add a circle element
   const circle1 = svg.append("circle")
     .attr("r", 7)
