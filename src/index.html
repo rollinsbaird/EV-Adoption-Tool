@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <title>Visualizing Alabama Vehicle Registration Data</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <main>
+      <div id="quiz-container">
+        <button class="return-button"  onclick="returnToDashboard()">🡐 RETURN TO DASHBOARD</button>
+        <div class="content-wrapper">
+          <h2>Adjust your expectations</h2>
+          <div id="progress-container">
+            <div id="progress-background"></div>
+            <div id="progress-bar"></div>
+            <div id="progress-steps">
+                <div class="step" data-step="1">
+                  <div class="label">STEP 1<br>[Price]</div>
+                    <div class="circle"></div>
+                </div>
+                <div class="step" data-step="2">
+                  <div class="label">STEP 2<br>[Range]</div>
+                    <div class="circle"></div>
+                </div>
+                <div class="step" data-step="3">
+                  <div class="label">STEP 3<br>[Charging]</div>
+                    <div class="circle"></div>
+                </div>
+                <div class="step" data-step="4">
+                  <div class="label">STEP 4<br>[Gas]</div>
+                    <div class="circle"></div>
+                </div>
+                <div class="step" data-step="5">
+                  <div class="label">STEP 5<br>[Bans]</div>
+                    <div class="circle"></div>
+                </div>
+            </div>
+          </div>
+          <div id="question-container"></div>
+          <div id="feedback-container"></div>
+        </div>
+        <div id="navigation">
+            <button id="back-button" onclick="prevQuestion()">🡐 BACK</button>
+            <button id="next-button" onclick="nextQuestion()">NEXT 🡒</button>
+        </div>
+      </div>
+      <div id="chart-container"></div>
+      <div id="tooltip"></div>
+    </main>
+    <div class="column-container">
+      <h2 class="logo">AMP LOGO</h2>
+      <div id="column-content">
+        <div class="text-box">
+          <h4>HOW DOES IT WORK?</h3>
+            <p>The adoption curve depends on
+              consumer expectations of EV
+              convenience and affordability.
+              That's why our model factors
+              in expectations as well as more
+              tangible metrics.</p>
+        </div>
+        <div class="text-box">
+          <h4>EXPECTATIONS EVOLVE</h3>
+            <p>Through surveys, we know what
+              expectations are most common
+              today; but with future
+              developments and changes to
+              the information environment,
+              these will surely evolve.</p>
+            <p>By inputting different sets of
+              expectations, you can model
+              different possible futures. You
+              can compare models to see the
+              best, worst, and most likely
+              futures — alongside the models
+              of your own expectations, to
+              see how they stack up.</p>
+        </div>
+        <button class="open-expectations" onclick="adjustExpectations()">Adjust your expectations</button>
+      </div>
+    </div>
+    <div id="mySidebar" class="sidebar">
+      <button class="close-sidebar" onclick="closeSidebar()">X Close</button>
+      <div class="text-container">
+        <p>
+          We estimate regional
+          EV production will reach
+        <h3>1,157,667
+          vehicles</h3>
+        </p>
+        <p>(that's 66.9% of demand)</p>
+      </div>
+      <div class="text-container">
+        <p>To power these will require
+          battery production totaling
+        <h3>86.62 GWh</h3>
+        </p>
+      </div>
+      <div class="text-container">
+        <p>This means we need to add
+        <h3>6 cell factories</h3>
+        </p>
+      </div>
+      <div class="text-container">
+        <p>Between EVs and batteries,
+          we'll need to build a regional
+          EV workforce numbering
+        <h3>28,839 workers</h3>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include the D3.js library -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- Include your custom script file -->
+  <script src="script.js"></script>
+</body>
+
+</html>
