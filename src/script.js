@@ -52,43 +52,54 @@ const questions = [
 let currentQuestionIndex = 0;
 const userAnswers = [];
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   showQuestion();
-//   updateNavigationButtons();
-// });
-
 function showQuestion() {
   const questionContainer = document.getElementById("question-container");
+  const feedbackContainer = document.getElementById("feedback-container");
 
   const currentQuestion = questions[currentQuestionIndex];
   questionContainer.innerHTML = `
-      <h2>${currentQuestion.question}</h2>
-      ${currentQuestion.options.map((option, index) => `
-          <label>
-              <input type="radio" name="question" value="${option}" ${userAnswers[currentQuestionIndex] === option ? "checked" : ""} onchange="showFeedback()">
-              ${option}
-          </label>
-          <br>
-      `).join('')}
+    <h2>${currentQuestion.question}</h2>
+    <div class="answer-buttons">
+        ${currentQuestion.options.map((option, index) => `
+            <button class="answer-button" onclick="selectAnswer('${option}')">${option}</button>
+        `).join('')}
+    </div>
   `;
+
+  feedbackContainer.innerHTML = '[You\'ll get some more information once you select an answer.]';
+}
+
+function selectAnswer(answer) {
+  userAnswers[currentQuestionIndex] = answer;
+  showFeedback();
+  updateNavigationButtons();
+  updateProgressBar();
+  updateSelectedAnswer();
+}
+
+function updateSelectedAnswer() {
+  const buttons = document.querySelectorAll('.answer-button');
+  buttons.forEach(button => {
+      if (userAnswers[currentQuestionIndex] === button.textContent) {
+          button.classList.add('selected');
+      } else {
+          button.classList.remove('selected');
+      }
+  });
 }
 
 function showFeedback() {
   const feedbackContainer = document.getElementById("feedback-container");
   const currentQuestion = questions[currentQuestionIndex];
   feedbackContainer.innerHTML = currentQuestion.feedback;
-  updateNavigationButtons()
-  saveAnswer()
-  updateProgressBar()
 }
 
 function updateNavigationButtons() {
   document.getElementById("back-button").disabled = currentQuestionIndex === 0;
-  document.getElementById("next-button").disabled = currentQuestionIndex === questions.length - 1 || !document.querySelector('input[name="question"]:checked');
+  document.getElementById("next-button").disabled = currentQuestionIndex === questions.length - 1 || !userAnswers[currentQuestionIndex];
 }
 
 function nextQuestion() {
-  saveAnswer();
   if (currentQuestionIndex < questions.length - 1) {
       currentQuestionIndex++;
       showQuestion();
@@ -98,7 +109,6 @@ function nextQuestion() {
 }
 
 function prevQuestion() {
-  saveAnswer();
   if (currentQuestionIndex > 0) {
       currentQuestionIndex--;
       showQuestion();
@@ -107,22 +117,26 @@ function prevQuestion() {
   }
 }
 
-function saveAnswer() {
-  const selectedOption = document.querySelector('input[name="question"]:checked');
-  if (selectedOption) {
-      userAnswers[currentQuestionIndex] = selectedOption.value;
-  }
-  updateNavigationButtons();
-}
-
 function updateProgressBar() {
   const progressBar = document.getElementById("progress-bar");
   const progressSteps = document.querySelectorAll(".step .circle");
+  const progressFill = document.querySelectorAll(".step .inner-circle");
   const filledSteps = userAnswers.length;
 
-  progressBar.style.width = `${(currentQuestionIndex / (questions.length - 1)) * 95}%`;
+  progressBar.style.width = `${(currentQuestionIndex / (questions.length - 1)) * 97}%`;
+  console.log(currentQuestionIndex)
+  console.log(filledSteps)
 
   progressSteps.forEach((step, index) => {
+      if (currentQuestionIndex == index || index <= filledSteps - 1) {
+        step.classList.add("filled");
+      }
+      else {
+          step.classList.remove("filled");
+      }
+  });
+  
+  progressFill.forEach((step, index) => {
       if (index <= filledSteps - 1) {
           step.classList.add("filled");
       } else {
