@@ -174,7 +174,7 @@ const tooltip = d3.select("#chart-container")
   .attr("class", "tooltip");
 
 // Load and process the data
-d3.csv("vehicle registration.csv").then(data => {
+d3.csv("src/vehicle registration.csv").then(data => {
   // Parse the date and convert the registrations to a number
   const parseDate = d3.timeParse("%Y");
   data.forEach(d => {
