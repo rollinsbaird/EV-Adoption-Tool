@@ -25,26 +25,36 @@ const questions = [
   {
       question: "When do you think the average price of electric and gas vehicles will be the same?",
       options: ["2025", "2030", "2035", "2040"],
+      correct: "2035",
+      frequency: [.07, .19, .32, .42],
       feedback: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. <br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
   },
   {
       question: "What do you expect the range of a typical EV will do?",
       options: ["Remain around 300 miles", "Increase to 600 miles by 2030", "Increase to 1000 miles by 2030"],
+      correct: "Increase to 600 miles by 2030",
+      frequency: [.28, .32, .42],
       feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
   },
   {
       question: "When do you think electric vehicle charging networks will be abundant across the country?",
       options: ["As is (Limited)", "By 2035", "By 2050"],
+      correct: "As is (Limited)",
+      frequency: [.28, .32, .42],
       feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
   },
   {
       question: "Do you think gas prices will double in the future?",
       options: ["No", "Yes, between 2025 and 2030", "Yes, between 2030 and 2035", "Yes, between 2035 and 2040"],
+      correct: "No",
+      frequency: [.07, .19, .32, .42],
       feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
   },
   {
       question: "Do you think selling new gas vehicles will be banned:",
       options: ["Never", "In 2045", "In 2040", "In 2035"],
+      correct: "Never",
+      frequency: [.07, .19, .32, .42],
       feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
   }
 ];
@@ -75,15 +85,21 @@ function selectAnswer(answer) {
   updateNavigationButtons();
   updateProgressBar();
   updateSelectedAnswer();
+  applyGradients();
+  addDashedLines();
 }
 
 function updateSelectedAnswer() {
   const buttons = document.querySelectorAll('.answer-button');
+  const currentQuestion = questions[currentQuestionIndex];
+
   buttons.forEach(button => {
+      button.classList.remove('selected', 'predicted');
       if (userAnswers[currentQuestionIndex] === button.textContent) {
           button.classList.add('selected');
-      } else {
-          button.classList.remove('selected');
+      }
+      if (currentQuestion.correct === button.textContent) {
+          button.classList.add('predicted');
       }
   });
 }
@@ -124,15 +140,13 @@ function updateProgressBar() {
   const filledSteps = userAnswers.length;
 
   progressBar.style.width = `${(currentQuestionIndex / (questions.length - 1)) * 97}%`;
-  console.log(currentQuestionIndex)
-  console.log(filledSteps)
 
   progressSteps.forEach((step, index) => {
       if (currentQuestionIndex == index || index <= filledSteps - 1) {
-        step.classList.add("filled");
+        step.classList.add("current");
       }
       else {
-          step.classList.remove("filled");
+          step.classList.remove("current");
       }
   });
   
@@ -143,6 +157,42 @@ function updateProgressBar() {
           step.classList.remove("filled");
       }
   });
+}
+
+function applyGradients() {
+  const buttons = document.querySelectorAll('.answer-button');
+  buttons.forEach((button, index) => {
+    button.style.backgroundImage = calculateGradient(index);
+  });
+}
+
+function calculateGradient(index) {
+  return (
+    "linear-gradient(0deg,#b0e9c8,#b0e9c8 " +
+    (questions[currentQuestionIndex].frequency[index] * 200 - 0.01).toFixed(2) +
+    "%,white " +
+    (questions[currentQuestionIndex].frequency[index] * 200).toFixed(0) +
+    "%,white)"
+  );
+}
+
+function addDashedLines() {
+  const questionContainer = document.getElementById("question-container");
+  let dashedLines = document.querySelector('.dashed-lines');
+
+  if (!dashedLines) {
+      dashedLines = document.createElement('div');
+      dashedLines.className = 'dashed-lines';
+      dashedLines.innerHTML = `
+          <div class="dashed-line">
+              <span class="dashed-line-label">40%</span>
+          </div>
+          <div class="dashed-line">
+              <span class="dashed-line-label">20%</span>
+          </div>
+      `;
+      questionContainer.insertBefore(dashedLines, questionContainer.querySelector('.answer-buttons'));
+  }
 }
 
 // Set dimensions and margins for the chart
