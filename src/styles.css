@@ -14,23 +14,28 @@ rect {
   font-family: sans-serif;
 }
 
+html,
 body,
 .wrapper,
 main {
   height: 100%;
+  margin: 0;
 }
 
-body,
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr minmax(250px, 25%);
+  grid-template-columns: 1fr 300px;
   font-family: sans-serif;
 }
 
 .column-container {
   display: flex;
   flex-flow: column;
-  height: 800 px;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 40px 36px 16px 24px;
+  box-sizing: border-box;
+  height: 100vh;
 }
 
 .logo {
@@ -38,14 +43,22 @@ body,
   background-color: black;
   color: white;
   font-family: sans-serif;
+  padding: 12px;
+  margin: 0;
 }
 
 .text-box {
-  flex: 1;
   font-family: sans-serif;
   border: 1px solid black;
-  padding: 0px 6px;
-  margin-top: 6px;
+  padding: 6px;
+}
+
+.text-box h4 {
+  margin: 0;
+}
+
+.text-box p {
+  margin: 16px 0 0 0;
 }
 
 .open-expectations {
@@ -53,7 +66,6 @@ body,
   background-color: black;
   font-size: 16pt;
   padding: 4px 8px;
-  margin-top: 6px;
 }
 
 .switch {
@@ -80,10 +92,9 @@ body,
   font-family: sans-serif;
   overflow-x: hidden;
   transition: 0.5s;
-  padding: 30px 0px 220px 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .sidebar a {
@@ -109,9 +120,50 @@ body,
   font-size: 24px;
 }
 
+.dropdown-container {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-label {
+  margin-right: 10px;
+  font-size: 28px;
+}
+
+.dropdown {
+  background-color: #b0e9c8;
+  color: #302b25;
+  border: none;
+  padding: 10px 45px 10px 10px;
+  font-size: 28px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.dropdown option {
+  color: #302b25;
+}
+
+.carrot {
+  position: absolute;
+  left: 175px;
+  transform: translateY(-25%);
+  pointer-events: none;
+  color: black;
+  font-size: 34px;
+}
+
+.sidebar .text-container,
+.close-sidebar,
+.dropdown-container {
+  padding: 0px 48px;
+}
+
 .sidebar p,
 h3 {
-  padding: 0px 24px;
+  padding: 0px ;
   margin: 0px;
 }
 
@@ -147,11 +199,16 @@ h3 {
   justify-content: space-between;
 }
 
+#quiz-container h2 {
+  font-weight: normal;
+}
+
 .content-wrapper {
   height: 100%;
 }
 
-.content-wrapper, #navigation {
+.content-wrapper,
+#navigation {
   margin: 0px 30px;
 }
 
@@ -208,6 +265,7 @@ h3 {
   left: 50%;
   transform: translateX(-50%);
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .answer-button.predicted::before {

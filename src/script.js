@@ -1,13 +1,30 @@
 function openSidebar() {
-  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.width = "24%";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const yearPicker = document.getElementById("year-picker");
+  const startYear = 2025;
+  const endYear = 2050;
+
+  for (let year = startYear; year <= endYear; year++) {
+      const option = document.createElement("option");
+      option.value = year;
+      option.textContent = year;
+      yearPicker.appendChild(option);
+  }
+});
 
 function closeSidebar() {
   document.getElementById("mySidebar").style.width = "0px";
 }
 
 function adjustExpectations() {
-  document.getElementById("column-content").style.display = "none";
+  var elements = document.getElementsByClassName("text-box");
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = "none";
+  }
+  document.querySelector(".open-expectations").style.display = "none";
   document.getElementById("chart-container").style.display = "none";
   document.getElementById("quiz-container").style.display = "flex";
   showQuestion();
@@ -16,7 +33,11 @@ function adjustExpectations() {
 }
 
 function returnToDashboard() {
-  document.getElementById("column-content").style.display = "block";
+  var elements = document.getElementsByClassName("text-box");
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = "block";
+  }
+  document.querySelector(".open-expectations").style.display = "block";
   document.getElementById("chart-container").style.display = "block";
   document.getElementById("quiz-container").style.display = "none";
 }
@@ -195,11 +216,6 @@ function addDashedLines() {
   }
 }
 
-// Set dimensions and margins for the chart
-const margin = { top: 170, right: 80, bottom: 40, left: 160 };
-const width = 1200 - margin.left - margin.right;
-const height = 600 - margin.top - margin.bottom;
-
 const colors = {
   red: "#a43333",
   red_ci: "#dec4bf",
@@ -217,22 +233,46 @@ const colors = {
 
 let single_model = true;
 
-// Set up the x and y scales
-const x = d3.scaleTime()
-  .range([0, width]);
+var chart = document.getElementById("chart-container");
+var aspect = chart.clientWidth / chart.clientHeight;
+var container = chart.parentElement;
 
-const y = d3.scaleLinear()
-  .range([height, 0]);
+window.addEventListener("resize", function () {
+  var targetWidth = container.clientWidth;
+  chart.setAttribute("width", targetWidth);
+  chart.setAttribute("height", Math.round(targetWidth / aspect));
+});
+
+// Set dimensions and margins for the chart
+const margin = { top: 170, right: 80, bottom: 40, left: 160 };
+const width = 1200 - margin.left - margin.right;
+const height = 600 - margin.top - margin.bottom;
+const realWidth = chart.clientWidth - margin.left - margin.right;
+const realHeight = chart.clientHeight - margin.top - margin.bottom;
+
+// Trigger the resize event initially
+window.dispatchEvent(new Event("resize"));
 
 // Create the SVG element and append it to the chart container
-const svg = d3.select("#chart-container")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
+var svg = d3.select("#chart-container")
+.append("svg")
+  // .attr("width", "1200")
+  // .attr("height", "600")
+  // .attr("width", width + margin.left + margin.right)
+  // .attr("height", height + margin.top + margin.bottom)
+  .attr("viewBox", "0 0 1200 650")
+  .attr("class", "chart")
   .append("g")
   .attr("transform", `translate(${margin.left},${margin.top})`);
+  
+// Set up the x and y scales
+const x = d3.scaleTime()
+  .range([0, chart.clientWidth - margin.left - margin.right]);
 
-// Create tooltip div
+const y = d3.scaleLinear()
+  .range([chart.clientHeight - margin.top - margin.bottom - 70, 0]);
+
+    // Create tooltip div
 const tooltip = d3.select("#chart-container")
   .append("div")
   .attr("class", "tooltip");
@@ -339,7 +379,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
     .data(y.ticks(20000000 / 5000000))
     .join("line")
     .attr("x1", 0)
-    .attr("x2", width)
+    .attr("x2", width+30)
     .attr("y1", d => y(d))
     .attr("y2", d => y(d))
     .attr("stroke", "#e0e0e0")
@@ -457,100 +497,16 @@ d3.csv("src/vehicle registration.csv").then(data => {
   // Initial chart update
   updateChart();
 
-  // // Add a circle element
-  // const circle1 = svg.append("circle")
-  //   .attr("r", 7)
-  //   .attr("fill", "#c34339")
-  //   .attr("cy", -45)
-  //   .attr("cx", 580.7672826830938 + 52)
-  //   .style("stroke", "white")
-  //   .attr("opacity", .70)
-  //   .style("pointer-events", "none");
-  
-  // // Add a circle element
-  // const circle2 = svg.append("circle")
-  //   .attr("r", 7)
-  //   .attr("fill", "#559247")
-  //   .attr("cy", -6)
-  //   .attr("cx", 580.7672826830938 + 52)
-  //   .style("stroke", "white")
-  //   .attr("opacity", .70)
-  //   .style("pointer-events", "none");
-
-  // const verticalLine = svg.append("line")
-  //   .attr("y1", -50)    // y position of the start of the line
-  //   .attr("y2", 390)      // y position of the end of the line
-  //   .attr("x1", 580.7672826830938) // x position of the start of the line
-  //   .attr("x2", 580.7672826830938) // x position of the end of the line (same as x1 for vertical line)
-  //   .attr("stroke", "black") // stroke color
-  //   .style("stroke-width", 2) // stroke width
-  //   .style("pointer-events", "none");
-
-  // // Button for more info sidebar
-  // d3.select('#chart-container').append('button')
-  // .text('🛈 MORE PROJECTIONS')
-  // .attr("class", "more")
-  // .style("background", "none")
-  // .style("border", "none")
-  // .style("position", "absolute")
-  // .style("top", "200px")
-  // .style("left", "790px")
-  // .style("z-index", "1")
-  // .on('click', () => {openSidebar()});
-
-    
-  // // create a listening rectangle
-  // const listeningRect = svg.append("rect")
-  // .attr("width", width)
-  // .attr("height", height);
-    
-  // // Define the drag behavior
-  // var drag = d3.drag()
-  // .on("drag", function(event) {
-  //   const [xCoord] = d3.pointer(event, this);
-  //   const bisectDate = d3.bisector(d => d.date).left;
-  //   const x0 = x.invert(xCoord);
-  //   const i = bisectDate(data, x0, 1);
-  //   const d0 = data[i - 1];
-  //   const d1 = data[i];
-  //   const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-  //   const xPos = x(d.date);
-  //   console.log(xPos)
-    
-  //   // Update the line position
-  //   verticalLine.attr("x1", xPos) // x position of the start of the line
-  //   .attr("x2", xPos); // x position of the end of the line (same as x1 for vertical line)
-
-  //   // Update the circles position
-  //   circle1.attr("cx", xPos + 52)
-  //   circle2.attr("cx", xPos + 52)
-
-  //   d3.select(".more").style("left", xPos+210+"px")
-    
-  //   tooltip
-  //     .style("left", `${xPos + 130}px`)
-  //     .style("top", `${114}px`)
-  //     .html(`&emsp;&emsp;&nbsp;${d.date.getFullYear()}
-  //     &emsp;Gas vehicles<br>
-  //     &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;${d.registrations !== undefined ? (d.registrations ).toLocaleString(0) : 'N/A'}<br>
-  //     🡐 &emsp; 🡒 &emsp;&emsp;Electric vehicles<br>
-  //     &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;${d.registrations !== undefined ? (d.ev_registrations ).toLocaleString(0) : 'N/A'}<br>`
-  //   )
-  // });
-
-  // // Apply the drag behavior to the listeningRect
-  // listeningRect.call(drag);
-
   // Function to add draggable elements and tooltip
   function addDraggableElements(data, circleConfigs, tooltipFields) {
     // Remove existing elements
-    svg.selectAll(".draggable").remove();
+    svg.selectAll("#draggable").remove();
     tooltip.style("display", "none");
-
-    const initial_xPos = 552.0164271047228
+    
+    const initial_xPos = x(new Date("2033-01-01T05:00:00.000Z"))
 
     const verticalLine = svg.append("line")
-      .attr("class", "draggable")
+      .attr("id", "draggable")
       .attr("y1", -50)
       .attr("y2", height)
       .attr("x1", initial_xPos)
@@ -560,7 +516,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
       .style("pointer-events", "none");
 
     const circles = circleConfigs.map(config => svg.append("circle")
-      .attr("class", "draggable")
+      .attr("id", "draggable")
       .attr("r", config.radius)
       .attr("fill", config.color)
       .attr("cy", config.cy)
@@ -570,13 +526,12 @@ d3.csv("src/vehicle registration.csv").then(data => {
       .style("pointer-events", "none"));
 
     const listeningRect = svg.append("rect")
-      .attr("class", "draggable")
+      .attr("id", "draggable")
       .attr("width", width)
       .attr("height", height);
 
     const drag = d3.drag()
       .on("drag", function(event) {
-        console.log(event)
         const [xCoord] = d3.pointer(event, this);
         const bisectDate = d3.bisector(d => d.date).left;
         const x0 = x.invert(xCoord);
@@ -585,7 +540,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
         const d1 = data[i];
         const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         const xPos = x(d.date);
-        console.log(d)
+        console.log(d.date);
 
         // Update the line position
         verticalLine.attr("x1", xPos).attr("x2", xPos);
@@ -663,25 +618,61 @@ d3.csv("src/vehicle registration.csv").then(data => {
 
   // Button for downloading data
   d3.select('#chart-container').append('button')
-    .text('↧ DOWNLOAD DATA')
-    .style("background", "black")
-    .style("color", "white")
-    .style("border", "1px solid black")
-    .style("margin-left", "70px")
-    .style("height", "20px")
-    .attr("x", 90)
-    .on('click', function() {
-      const dataStr = JSON.stringify(data); // Replace 'data' with your data array
-      const blob = new Blob([dataStr], { type: 'text/json;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.setAttribute('href', url);
-      link.setAttribute('download', 'data.json');
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
+  .text('↧ DOWNLOAD DATA')
+  .style("background", "black")
+  .style("color", "white")
+  .style("border", "1px solid black")
+  .style("margin-left", "70px")
+  .style("height", "20px")
+  .attr("x", 90)
+  .on('click', function() {
+    // Convert data to CSV format
+    const csvRows = [];
+    const headers = Object.keys(data[0]);
+    csvRows.push(headers.join(','));
+
+    for (const row of data) {
+      const values = headers.map(header => row[header]);
+      csvRows.push(values.join(','));
+    }
+
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'data.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+
+  // // Button for downloading data
+  // d3.select('#chart-container').append('button')
+  //   .text('↧ DOWNLOAD DATA')
+  //   .style("background", "black")
+  //   .style("color", "white")
+  //   .style("border", "1px solid black")
+  //   .style("margin-left", "70px")
+  //   .style("height", "20px")
+  //   .attr("x", 90)
+  //   .on('click', function() {
+  //     const dataStr = JSON.stringify(data); // Replace 'data' with your data array
+  //     const blob = new Blob([dataStr], { type: 'text/json;charset=utf-8;' });
+  //     const url = URL.createObjectURL(blob);
+  //     const link = document.createElement('a');
+  //     link.setAttribute('href', url);
+  //     link.setAttribute('download', 'data.json');
+  //     link.style.visibility = 'hidden';
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   });
+
+  // Assuming 'svg' is your D3 SVG element
+  var chart = d3.select('.chart');
 
   // Button for downloading the image
   d3.select('#chart-container').append('button')
@@ -691,8 +682,17 @@ d3.csv("src/vehicle registration.csv").then(data => {
     .style("margin-left", "30px")
     .style("height", "20px")
     .on('click', function() {
+      // Temporarily remove the tooltip and listening rectangle
+      // var tooltip = d3.select('#tooltip').style("display", "none");
+      // document.getElementById("tooltip").style.display = "1";
+      // document.getElementById("draggable").style.opacity = "1";
+
+      // tooltip.attr("display", "none")
+      // listeningRect.attr("display", "none")
+
+      // Serialize the SVG and create a Blob
       const serializer = new XMLSerializer();
-      const xmlString = serializer.serializeToString(svg.node());
+      const xmlString = serializer.serializeToString(d3.select('.chart').node());
       const blob = new Blob([xmlString], { type: 'image/svg+xml;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -702,6 +702,13 @@ d3.csv("src/vehicle registration.csv").then(data => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      // tooltip.style("display", "block")
+      // listeningRect.style("display", "block")
+
+      // // Re-add the tooltip and listening rectangle
+      // d3.select('#chart-container').append(() => tooltip.node());
+      // d3.select('#chart-container').append(() => listeningRect.node());
     });
 
   // Button for downloading the image
@@ -718,7 +725,6 @@ d3.csv("src/vehicle registration.csv").then(data => {
       updateChart();
     });
   
-
   // Button for downloading the image
   d3.select('#chart-container').append('button')
     .text('+ ADD TO COMPARISON')
@@ -733,7 +739,6 @@ d3.csv("src/vehicle registration.csv").then(data => {
       updateChart();
     });
   
-
   // Event listener for the button
   d3.select("#toggle-button").on("click", () => {
     single_model = !single_model;
