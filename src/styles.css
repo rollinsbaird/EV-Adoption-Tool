@@ -31,6 +31,10 @@ main {
   font-family: sans-serif;
 }
 
+.chart-container {
+  height: 100%;
+}
+
 .column-container {
   display: flex;
   flex-flow: column;
@@ -166,7 +170,7 @@ main {
 
 .sidebar p,
 h3 {
-  padding: 0px ;
+  padding: 0px;
   margin: 0px;
 }
 
@@ -222,6 +226,10 @@ h3 {
 
 #question-container h2 {
   text-align: left;
+}
+
+#feedback-container {
+  column-count: 2;
 }
 
 .answer-buttons {
@@ -367,7 +375,7 @@ h3 {
   position: absolute;
   top: 39px;
   width: 100%;
-  margin-left: 8px;
+  /* margin-left: 8px; */
 }
 
 #progress-steps {
@@ -419,5 +427,8 @@ h3 {
   margin-bottom: 5px;
   font-size: 12px;
   text-align: left;
-  align-self: right;
+}
+
+.label.current {
+  color: #5b6fcc;
 }

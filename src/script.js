@@ -44,39 +44,52 @@ function returnToDashboard() {
 
 const questions = [
   {
-      question: "When do you think the average price of electric and gas vehicles will be the same?",
-      options: ["2025", "2030", "2035", "2040"],
+      question: "When do you think the average price of electric vehicles will equal that of gas vehicles?",
+      options: ["By 2025", "By 2030", "By 2035", "By 2040"],
       correct: "2035",
       frequency: [.07, .19, .32, .42],
-      feedback: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. <br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
+      feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
+      feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
   },
   {
-      question: "What do you expect the range of a typical EV will do?",
-      options: ["Remain around 300 miles", "Increase to 600 miles by 2030", "Increase to 1000 miles by 2030"],
-      correct: "Increase to 600 miles by 2030",
+      question: "How do you think automakers will continue to develop new EV body styles/trims/segments?",
+      options: ["They won't", "Slowly", "Rapidly"],
+      correct: "Rapidly",
       frequency: [.28, .32, .42],
-      feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
+      feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
+      feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
   },
   {
-      question: "When do you think electric vehicle charging networks will be abundant across the country?",
-      options: ["As is (Limited)", "By 2035", "By 2050"],
-      correct: "As is (Limited)",
+      question: "What driving range do you think the average EV will achieve by 2030?",
+      options: ["300 miles", "600 miles", "1000 miles"],
+      correct: "600 miles",
       frequency: [.28, .32, .42],
-      feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
+      feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
+      feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
   },
   {
-      question: "Do you think gas prices will double in the future?",
-      options: ["No", "Yes, between 2025 and 2030", "Yes, between 2030 and 2035", "Yes, between 2035 and 2040"],
-      correct: "No",
-      frequency: [.07, .19, .32, .42],
-      feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
+      question: "When do you think EV charging stations will be abundant and accessible as gas stations?",
+      options: ["Never", "By 2035", "By 2050"],
+      correct: "By 2035",
+      frequency: [.28, .32, .42],
+      feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
+      feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
   },
   {
-      question: "Do you think selling new gas vehicles will be banned:",
-      options: ["Never", "In 2045", "In 2040", "In 2035"],
-      correct: "Never",
+      question: "When do you think the price of gas will reach double its 2023 price?",
+      options: ["Never", "By 2030", "By 2035", "By 2040"],
+      correct: "By 2035",
       frequency: [.07, .19, .32, .42],
-      feedback: "The plurality of consumers surveyed think the prices will converge in 2040."
+      feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
+      feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
+  },
+  {
+      question: "Do you think that the sale of new gas vehicles will ever be banned? If so, when?",
+      options: ["Never", "By 2035", "By 2040", "By 2045"],
+      correct: "By 2045",
+      frequency: [.07, .19, .32, .42],
+      feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
+      feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
   }
 ];
 
@@ -92,7 +105,7 @@ function showQuestion() {
     <h2>${currentQuestion.question}</h2>
     <div class="answer-buttons">
         ${currentQuestion.options.map((option, index) => `
-            <button class="answer-button" onclick="selectAnswer('${option}')">${option}</button>
+            <button class="answer-button" onclick="selectAnswer(&quot;${option}&quot;)">${option}</button>
         `).join('')}
     </div>
   `;
@@ -128,12 +141,17 @@ function updateSelectedAnswer() {
 function showFeedback() {
   const feedbackContainer = document.getElementById("feedback-container");
   const currentQuestion = questions[currentQuestionIndex];
-  feedbackContainer.innerHTML = currentQuestion.feedback;
+  feedbackContainer.innerHTML = currentQuestion.feedbackColumn1 + currentQuestion.feedbackColumn2;
 }
 
 function updateNavigationButtons() {
   document.getElementById("back-button").disabled = currentQuestionIndex === 0;
-  document.getElementById("next-button").disabled = currentQuestionIndex === questions.length - 1 || !userAnswers[currentQuestionIndex];
+  document.getElementById("next-button").disabled = !userAnswers[currentQuestionIndex];
+  if (currentQuestionIndex === questions.length - 1) {
+    document.getElementById("next-button").innerText = "FINISH ✓"
+  } else {
+    document.getElementById("next-button").innerText = "NEXT 🡒"
+  }
 }
 
 function nextQuestion() {
@@ -157,13 +175,23 @@ function prevQuestion() {
 function updateProgressBar() {
   const progressBar = document.getElementById("progress-bar");
   const progressSteps = document.querySelectorAll(".step .circle");
+  const progressLabels = document.querySelectorAll(".step .label");
   const progressFill = document.querySelectorAll(".step .inner-circle");
   const filledSteps = userAnswers.length;
 
-  progressBar.style.width = `${(currentQuestionIndex / (questions.length - 1)) * 97}%`;
+  progressBar.style.width = `${(currentQuestionIndex / (questions.length - 1)) * 98}%`;
 
   progressSteps.forEach((step, index) => {
       if (currentQuestionIndex == index || index <= filledSteps - 1) {
+        step.classList.add("current");
+      }
+      else {
+          step.classList.remove("current");
+      }
+  });
+  
+  progressLabels.forEach((step, index) => {
+      if (currentQuestionIndex == index && currentQuestionIndex > userAnswers.length - 1) {
         step.classList.add("current");
       }
       else {
