@@ -26,6 +26,7 @@ function adjustExpectations() {
   }
   document.querySelector(".open-expectations").style.display = "none";
   document.getElementById("chart-container").style.display = "none";
+  document.getElementById("chart-buttons").style.display = "none";
   document.getElementById("quiz-container").style.display = "flex";
   showQuestion();
   updateNavigationButtons();
@@ -39,6 +40,7 @@ function returnToDashboard() {
   }
   document.querySelector(".open-expectations").style.display = "block";
   document.getElementById("chart-container").style.display = "block";
+  document.getElementById("chart-buttons").style.display = "flex";
   document.getElementById("quiz-container").style.display = "none";
 }
 
@@ -46,7 +48,7 @@ const questions = [
   {
       question: "When do you think the average price of electric vehicles will equal that of gas vehicles?",
       options: ["By 2025", "By 2030", "By 2035", "By 2040"],
-      correct: "2035",
+      correct: "By 2035",
       frequency: [.07, .19, .32, .42],
       feedbackColumn1: "The plurality of consumers surveyed think the prices will converge in 2040. This perception is based on donec urna est, semper quis, auctor eget, ultrices in, purus. Etiam rutrum. Aliquam blandit dui a libero. Praesent tortor tortor, bibendum vehicula, accumsan sed, adipiscing a, pede. ",
       feedbackColumn2: "<br>Our indicators point to 2035 as the likelier intersection. Nullam et tortor. Suspendisse tempor leo quis nunc fringilla volutpat. Donec rutrum ullamcorper lorem. Nunc tincidunt sagittis augue. Quisque lacinia. Phasellus sollicitudin."
@@ -105,7 +107,7 @@ function showQuestion() {
     <h2>${currentQuestion.question}</h2>
     <div class="answer-buttons">
         ${currentQuestion.options.map((option, index) => `
-            <button class="answer-button" onclick="selectAnswer(&quot;${option}&quot;)">${option}</button>
+            <button class="answer-button before-answer" onclick="selectAnswer(&quot;${option}&quot;)">${option}</button>
         `).join('')}
     </div>
   `;
@@ -128,7 +130,7 @@ function updateSelectedAnswer() {
   const currentQuestion = questions[currentQuestionIndex];
 
   buttons.forEach(button => {
-      button.classList.remove('selected', 'predicted');
+      button.classList.remove('selected', 'predicted', 'before-answer');
       if (userAnswers[currentQuestionIndex] === button.textContent) {
           button.classList.add('selected');
       }
@@ -272,7 +274,7 @@ window.addEventListener("resize", function () {
 });
 
 // Set dimensions and margins for the chart
-const margin = { top: 170, right: 80, bottom: 40, left: 160 };
+const margin = { top: 140, right: 80, bottom: 6, left: 160 };
 const width = 1200 - margin.left - margin.right;
 const height = 600 - margin.top - margin.bottom;
 const realWidth = chart.clientWidth - margin.left - margin.right;
@@ -423,7 +425,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
       // Add lines and confidence intervals for single model
       addLineWithConfidenceInterval(svg, data, "registrations", "high", "low", colors.red, colors.red_ci);
       addLineWithConfidenceInterval(svg, data, "ev_registrations", "ev_high", "ev_low", colors.green, colors.green_ci);
-      d3.select('.add-comparison').style("display", "block")
+      d3.select('.add-comparison').style("display", "flex")
       d3.select('.more').style("display", "block")
 
       // Config for circles and tooltip fields
@@ -644,14 +646,39 @@ d3.csv("src/vehicle registration.csv").then(data => {
     .style("font-family", "sans-serif")
     .text("ELECTRIC VEHICLE ADOPTION PREDICTION TOOL");
 
+  const svgDownload = `
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 12.9762H4.35V14.8512H15.6V12.9762H16.95V16.3512H3V12.9762Z" fill="#EDECE3"/>
+    <path d="M9.88 13L7.03 10.15V8.5H7.18L9.205 10.525H9.28V2.5H10.705V10.525H10.78L12.805 8.5H12.955V10.15L10.105 13H9.88Z" fill="#EDECE3"/>
+  </svg>
+  `;
+  const svgGraph = `
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.32096 14.8333L8.27237 11.5417L10.0156 12.392L13.4025 8.76942L13.5041 8.87437V12.7768L13.6057 12.8824L15.1299 11.3002V5.71056L14.9267 5.5H9.54115L8.01699 7.18719L8.11856 7.2928H11.9799L12.0815 7.39842L9.65834 9.93929L7.95237 9.18921L4 13.4623L5.32096 14.8333Z" fill="#322B24"/>
+  </svg>
+  `;
+  const svgAdd = `
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9.28809 13.175V10.325H6.66309V8.975H9.28809V6.125H10.7131V8.975H13.3381V10.325H10.7131V13.175H9.28809Z" fill="#322B24"/>
+  </svg>
+  `;
+  const svgCompare = `
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_2737_942)">
+    <path d="M6.26665 14.3192L1.42467 9.47727L6.26665 4.6353L7.22545 5.58345L4.0241 8.7848H15.9772L12.7759 5.58345L13.7347 4.6353L18.5767 9.47727L13.7347 14.3192L12.7759 13.3604L15.9772 10.1697H4.0241L7.22545 13.3604L6.26665 14.3192Z" fill="#322B24"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_2737_942">
+    <rect width="20" height="20" fill="white"/>
+    </clipPath>
+    </defs>
+  </svg>
+  `;
   // Button for downloading data
-  d3.select('#chart-container').append('button')
-  .text('↧ DOWNLOAD DATA')
-  .style("background", "black")
-  .style("color", "white")
-  .style("border", "1px solid black")
+  d3.select('#left-buttons').append('button')
+  .html(`${svgDownload} Download Data`)
+  .attr("class", "styled-button dark")
   .style("margin-left", "70px")
-  .style("height", "20px")
   .attr("x", 90)
   .on('click', function() {
     // Convert data to CSV format
@@ -676,39 +703,11 @@ d3.csv("src/vehicle registration.csv").then(data => {
     document.body.removeChild(link);
   });
 
-
-  // // Button for downloading data
-  // d3.select('#chart-container').append('button')
-  //   .text('↧ DOWNLOAD DATA')
-  //   .style("background", "black")
-  //   .style("color", "white")
-  //   .style("border", "1px solid black")
-  //   .style("margin-left", "70px")
-  //   .style("height", "20px")
-  //   .attr("x", 90)
-  //   .on('click', function() {
-  //     const dataStr = JSON.stringify(data); // Replace 'data' with your data array
-  //     const blob = new Blob([dataStr], { type: 'text/json;charset=utf-8;' });
-  //     const url = URL.createObjectURL(blob);
-  //     const link = document.createElement('a');
-  //     link.setAttribute('href', url);
-  //     link.setAttribute('download', 'data.json');
-  //     link.style.visibility = 'hidden';
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //   });
-
-  // Assuming 'svg' is your D3 SVG element
-  var chart = d3.select('.chart');
-
   // Button for downloading the image
-  d3.select('#chart-container').append('button')
-    .text('↝ DOWNLOAD IMAGE')
-    .style("background", "white")
-    .style("border", "1px solid black")
+  d3.select('#left-buttons').append('button')
+    .html(`${svgGraph} Download Graph`)
+    .attr("class", "styled-button")
     .style("margin-left", "30px")
-    .style("height", "20px")
     .on('click', function() {
       // Temporarily remove the tooltip and listening rectangle
       // var tooltip = d3.select('#tooltip').style("display", "none");
@@ -739,34 +738,26 @@ d3.csv("src/vehicle registration.csv").then(data => {
       // d3.select('#chart-container').append(() => listeningRect.node());
     });
 
+    // Button for downloading the image
+    d3.select('#right-buttons').append('button')
+      .html(`${svgAdd} Add to Comparison`)
+      .attr("class", "add-comparison styled-button")
+      .style("margin-right", "30px")
+      .on('click', () => {
+        single_model = !single_model;
+        updateChart();
+      });
+
   // Button for downloading the image
-  d3.select('#chart-container').append('button')
-    .text(single_model ? '🡘 COMPARE MODELS' : '🡘 SINGLE MODEL')
-    .attr("class", "change-model")
-    .style("background", "white")
-    .style("border", "1px solid black")
+  d3.select('#right-buttons').append('button')
+    .html(single_model ? `${svgCompare} COMPARE MODELS` : `${svgCompare} SINGLE MODEL`)
+    .attr("class", "change-model styled-button")
     .style("margin-right", "65px")
-    .style("float", "right")
-    .style("height", "20px")
     .on('click', () => {
       single_model = !single_model;
       updateChart();
     });
-  
-  // Button for downloading the image
-  d3.select('#chart-container').append('button')
-    .text('+ ADD TO COMPARISON')
-    .attr("class", "add-comparison")
-    .style("background", "white")
-    .style("border", "1px solid black")
-    .style("margin-right", "30px")
-    .style("float", "right")
-    .style("height", "20px")
-    .on('click', () => {
-      single_model = !single_model;
-      updateChart();
-    });
-  
+
   // Event listener for the button
   d3.select("#toggle-button").on("click", () => {
     single_model = !single_model;

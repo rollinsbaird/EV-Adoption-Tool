@@ -55,6 +55,10 @@
       </div>
       <div id="chart-container"></div>
       <div id="tooltip"></div>
+      <div id="chart-buttons">
+        <div id="left-buttons"></div>
+        <div id="right-buttons"></div>
+      </div>
     </main>
     <div class="column-container">
       <h2 class="logo">AMP LOGO</h2>
@@ -65,9 +69,7 @@
             convenience and affordability.</p>
           <p>That's why our model factors
             in expectations as well as more
-            tangible metrics.</p>
-      </div>
-      <div class="text-box">
+            tangible metrics.</p> <br>
         <h4>EXPECTATIONS EVOLVE</h4>
           <p>Through surveys, we know what
             expectations are most common
@@ -84,7 +86,18 @@
             of your own expectations, to
             see how they stack up.</p>
       </div>
-      <button class="open-expectations" type="button" onclick="adjustExpectations()">Adjust your expectations</button>
+      <button class="open-expectations" type="button" onclick="adjustExpectations()">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#EDECE3" d="M0 11h36v2H0z"/>
+          <circle cx="6" cy="12" r="3.25" fill="#322B24" stroke="#EDECE3" stroke-width="1.5"/>
+          <path fill="#EDECE3" d="M0 21h36v2H0z"/>
+          <circle cx="30" cy="22" r="3.25" fill="#322B24" stroke="#EDECE3" stroke-width="1.5"/>
+          <path fill="#EDECE3" d="M0 31h36v2H0z"/>
+          <circle cx="18" cy="32" r="3.25" fill="#322B24" stroke="#EDECE3" stroke-width="1.5"/>
+        </svg>        
+        <!-- <img src="image.png" alt="Icon of three horizontal sliders"> -->
+        Readjust your expectations
+      </button>
     </div>
     <div id="mySidebar" class="sidebar">
       <button class="close-sidebar" type="button" onclick="closeSidebar()">X Close</button>
