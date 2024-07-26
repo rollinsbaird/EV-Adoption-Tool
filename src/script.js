@@ -49,10 +49,8 @@ function adjustExpectations() {
 }
 
 function returnToDashboard() {
-  var elements = document.getElementsByClassName("text-box");
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].style.display = "block";
-  }
+  document.querySelector("main").style.gridColumn = "1";
+  document.getElementById("text-box");
   document.querySelector(".open-expectations").style.display = "flex";
   document.getElementById("chart-container").style.display = "block";
   document.getElementById("chart-buttons").style.display = "flex";
