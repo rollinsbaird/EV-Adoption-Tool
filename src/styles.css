@@ -35,6 +35,11 @@ main {
   font-family: sans-serif;
 }
 
+main {
+  grid-row: 1;
+  z-index: 1;
+}
+
 .chart-container {
   height: 100%;
 }
@@ -51,6 +56,8 @@ main {
 }
 
 .column-container {
+  grid-column: 2;
+  grid-row: 1;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -69,35 +76,92 @@ main {
   margin: 0;
 }
 
-.text-box {
+#text-box {
   font-family: sans-serif;
   border: 1px solid black;
   padding: 6px;
+  /* padding: 20px 20px 18px; */
 }
 
-.text-box h4 {
+#text-box h4, .got-it {
   margin: 0;
+  /* font-family: 'TT Hoves'; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  /* line-height: 15px; */
+  /* letter-spacing: 0.1em; */
+  text-transform: uppercase;
+  font-feature-settings: 'tnum' on, 'onum' on;
 }
 
-.text-box p {
-  margin: 16px 0 0 0;
+.got-it {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.got-it svg {
+  margin-left: 8px;
+}
+
+#text-box p {
+  /* margin: 16px 0 0 0; */
+  /* font-family: 'Borna'; */
+  font-style: normal;
+  font-size: 15px;
+  line-height: 18px;
+  font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
 .open-expectations {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 12px 20px;
+  position: relative;
+  padding: 6px 6px 6px 12px;
   gap: 30px;
   text-align: left;
   color: #EDECE3;
   background-color: #322B24;
+  border: none;
   /* font-family: 'Borna'; */
   font-style: normal;
   font-weight: 400;
   font-size: 22px;
   line-height: 28px;
   /* font-feature-settings: 'tnum' on, 'onum' on, 'ss03' on, 'ss05' on, 'ss07' on, 'ss09' on, 'ss01' on; */
+}
+
+.open-expectations:hover {
+  color: white;
+  background-color: #2c2f79;
+  /* border: 0px solid #2c2f79; */
+  border-radius: 20px;
+  /* padding: 8px 6px 8px 12px; */
+}
+
+#question-circle {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  color: #322B24;
+  background-color: #EDECE3;
+  font-size: 12px;
+  font-weight: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0;
 }
 
 .switch {
@@ -246,7 +310,7 @@ h3 {
 }
 
 #quiz-container {
-  width: 1130px;
+  width: 90%;
   height: 600px;
   padding: 30px 30px 0px 40px;
   display: none;
@@ -288,13 +352,13 @@ h3 {
 
 .answer-button {
   padding: 10px 20px;
-  font-size: 20px;
+  font-size: 28px;
   border: 2px solid black;
   background: none;
   cursor: pointer;
   width: calc(100% / 3 - 40px);
   margin: 40px;
-  height: 146px;
+  height: 156px;
   box-sizing: border-box;
   text-wrap: pretty;
 }

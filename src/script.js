@@ -1,33 +1,48 @@
-function openSidebar() {
-  document.getElementById("mySidebar").style.width = "24%";
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const yearPicker = document.getElementById("year-picker");
   const startYear = 2025;
   const endYear = 2050;
-
+  
   for (let year = startYear; year <= endYear; year++) {
-      const option = document.createElement("option");
-      option.value = year;
-      option.textContent = year;
-      yearPicker.appendChild(option);
+    const option = document.createElement("option");
+    option.value = year;
+    option.textContent = year;
+    yearPicker.appendChild(option);
   }
 });
+
+function openSidebar() {
+  document.getElementById("mySidebar").style.width = "24%";
+}
 
 function closeSidebar() {
   document.getElementById("mySidebar").style.width = "0px";
 }
 
+var infoShowing = true;
+
+function hideInfo() {
+  document.getElementById("text-box").style.display = "none";
+  document.getElementById("question-circle").style.display = "flex";
+  infoShowing = false;
+}
+
+function showInfo(event) {
+  event.stopPropagation()
+  document.getElementById("text-box").style.display = "block";
+  document.getElementById("question-circle").style.display = "none";
+  infoShowing = true;
+}
+
 function adjustExpectations() {
-  var elements = document.getElementsByClassName("text-box");
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].style.display = "none";
-  }
+  document.querySelector("main").style.gridColumn = "1 / 6";
+  document.getElementById("text-box");
   document.querySelector(".open-expectations").style.display = "none";
   document.getElementById("chart-container").style.display = "none";
   document.getElementById("chart-buttons").style.display = "none";
   document.getElementById("quiz-container").style.display = "flex";
+  document.getElementById("text-box").style.display = "none";
+  document.getElementById("question-circle").style.display = "flex";
   showQuestion();
   updateNavigationButtons();
   updateProgressBar();
@@ -38,10 +53,14 @@ function returnToDashboard() {
   for (var i = 0; i < elements.length; i++) {
     elements[i].style.display = "block";
   }
-  document.querySelector(".open-expectations").style.display = "block";
+  document.querySelector(".open-expectations").style.display = "flex";
   document.getElementById("chart-container").style.display = "block";
   document.getElementById("chart-buttons").style.display = "flex";
   document.getElementById("quiz-container").style.display = "none";
+  if (infoShowing) {
+    document.getElementById("text-box").style.display = "block";
+    document.getElementById("question-circle").style.display = "none";
+  }
 }
 
 const questions = [
@@ -570,7 +589,6 @@ d3.csv("src/vehicle registration.csv").then(data => {
         const d1 = data[i];
         const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         const xPos = x(d.date);
-        console.log(d.date);
 
         // Update the line position
         verticalLine.attr("x1", xPos).attr("x2", xPos);

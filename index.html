@@ -53,27 +53,31 @@
             <button id="next-button" onclick="nextQuestion()">NEXT 🡒</button>
         </div>
       </div>
-      <div id="chart-container"></div>
-      <div id="tooltip"></div>
-      <div id="chart-buttons">
-        <div id="left-buttons"></div>
-        <div id="right-buttons"></div>
+      <div id="chart-wrapper">
+        <div id="chart-container"></div>
+        <div id="tooltip"></div>
+        <div id="chart-buttons">
+          <div id="left-buttons"></div>
+          <div id="right-buttons"></div>
+        </div>
       </div>
     </main>
     <div class="column-container">
       <h2 class="logo">AMP LOGO</h2>
-      <div class="text-box">
+      <div id="text-box">
         <h4>HOW DOES IT WORK?</h4>
+        <div class="spacer"></div>
           <p>The adoption curve depends on
             consumer expectations of EV
             convenience and affordability.</p>
           <p>That's why our model factors
             in expectations as well as more
-            tangible metrics.</p> <br>
+            tangible metrics.</p>
+        <div class="spacer"></div>
         <h4>EXPECTATIONS EVOLVE</h4>
-          <p>Through surveys, we know what
-            expectations are most common
-            today; but with future
+        <p>Through surveys, we know what
+          expectations are most common
+          today; but with future
             developments and changes to
             the information environment,
             these will surely evolve.</p>
@@ -85,6 +89,12 @@
             futures — alongside the models
             of your own expectations, to
             see how they stack up.</p>
+        <div class="spacer"></div>
+        <button class="got-it" onclick="hideInfo()">GOT IT 
+          <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.89569 9.80717L6.16344 8.52344L8.74689 11.0643L14.3346 5.49787L15.613 6.7816L8.74689 13.6211L4.89569 9.80717Z" fill="#322B24"/>
+          </svg>
+        </button>
       </div>
       <button class="open-expectations" type="button" onclick="adjustExpectations()">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,8 +105,8 @@
           <path fill="#EDECE3" d="M0 31h36v2H0z"/>
           <circle cx="18" cy="32" r="3.25" fill="#322B24" stroke="#EDECE3" stroke-width="1.5"/>
         </svg>        
-        <!-- <img src="image.png" alt="Icon of three horizontal sliders"> -->
         Readjust your expectations
+        <div id="question-circle" onclick="showInfo(event)">?</div>
       </button>
     </div>
     <div id="mySidebar" class="sidebar">
