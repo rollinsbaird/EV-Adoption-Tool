@@ -37,7 +37,14 @@ main {
 
 main {
   grid-row: 1;
-  z-index: 1;
+  z-index: 2;
+  /* position: relative; */
+}
+
+main svg {
+  z-index: 2;
+  position: relative;
+  overflow: visible;
 }
 
 .chart-container {
@@ -59,6 +66,7 @@ main {
 
 #right-buttons {
   float: inline-end;
+  margin-right: -58.5px;
 }
 
 .column-container {
