@@ -291,7 +291,7 @@ window.addEventListener("resize", function () {
 });
 
 // Set dimensions and margins for the chart
-const margin = { top: 140, right: 80, bottom: 6, left: 160 };
+const margin = { top: 140, right: 40, bottom: 6, left: 160 };
 const width = 1200 - margin.left - margin.right;
 const height = 600 - margin.top - margin.bottom;
 const realWidth = chart.clientWidth - margin.left - margin.right;

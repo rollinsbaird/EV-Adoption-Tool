@@ -45,14 +45,20 @@ main {
 }
 
 #chart-buttons {
+  position: absolute;
+  width: 80%;
+  bottom: 24px;
   display: flex;
   justify-content: space-between;
-  padding-top: 24.2px;
 }
 
 #left-buttons,
 #right-buttons {
   display: flex;
+}
+
+#right-buttons {
+  float: inline-end;
 }
 
 .column-container {
@@ -69,7 +75,7 @@ main {
 
 .logo {
   text-align: center;
-  background-color: #322B24;
+  background-color: #322b24;
   color: white;
   font-family: sans-serif;
   padding: 12px;
@@ -83,7 +89,8 @@ main {
   /* padding: 20px 20px 18px; */
 }
 
-#text-box h4, .got-it {
+#text-box h4,
+.got-it {
   margin: 0;
   /* font-family: 'TT Hoves'; */
   font-style: normal;
@@ -92,7 +99,7 @@ main {
   /* line-height: 15px; */
   /* letter-spacing: 0.1em; */
   text-transform: uppercase;
-  font-feature-settings: 'tnum' on, 'onum' on;
+  font-feature-settings: "tnum" on, "onum" on;
 }
 
 .got-it {
@@ -114,7 +121,7 @@ main {
   font-style: normal;
   font-size: 15px;
   line-height: 18px;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
 }
 
 .open-expectations {
@@ -125,8 +132,8 @@ main {
   padding: 6px 6px 6px 12px;
   gap: 30px;
   text-align: left;
-  color: #EDECE3;
-  background-color: #322B24;
+  color: #edece3;
+  background-color: #322b24;
   border: none;
   /* font-family: 'Borna'; */
   font-style: normal;
@@ -151,8 +158,8 @@ main {
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  color: #322B24;
-  background-color: #EDECE3;
+  color: #322b24;
+  background-color: #edece3;
   font-size: 12px;
   font-weight: 600;
   display: none;
@@ -181,7 +188,7 @@ main {
 
 .styled-button.dark {
   color: white;
-  background-color: #322B24;
+  background-color: #322b24;
 }
 
 .styled-button:hover {
@@ -322,32 +329,47 @@ h3 {
   font-weight: normal;
 }
 
+.quiz-title {
+  display: flex;
+  align-items: center;
+}
+
+.quiz-title svg {
+  margin-right: 8px;
+}
+
 .content-wrapper {
   height: 100%;
 }
 
 .content-wrapper,
 #navigation {
-  margin: 0px 30px;
+  margin: 30px 30px 0px 30px;
+}
+
+#navigation,
+#feedback-container {
+  width: 72%;
 }
 
 #question-container {
-  margin-bottom: 20px;
+  margin: 40px 0px 40px;
   text-align: center;
 }
 
 #question-container h2 {
   text-align: left;
+  margin-bottom: -10px;
 }
 
 #feedback-container {
   column-count: 2;
+  margin-top: 50px;
 }
 
 .answer-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+  gap: 100px;
 }
 
 .answer-button {
@@ -356,9 +378,9 @@ h3 {
   border: 2px solid black;
   background: none;
   cursor: pointer;
-  width: calc(100% / 3 - 40px);
-  margin: 40px;
-  height: 156px;
+  width: calc(100% / 5);
+  margin-top: 40px;
+  height: 191px;
   box-sizing: border-box;
   text-wrap: pretty;
 }
@@ -420,8 +442,7 @@ h3 {
 
 .dashed-lines {
   position: relative;
-  width: 96%;
-  margin-left: 2.5%;
+  /* width: 96%; */
   z-index: 1;
 }
 
@@ -451,6 +472,8 @@ h3 {
 #navigation {
   display: flex;
   justify-content: space-between;
+  position: absolute;
+  bottom: 30px;
 }
 
 #navigation button {
@@ -483,7 +506,7 @@ h3 {
   background-color: #ddd;
   position: absolute;
   top: 39px;
-  width: 96%;
+  width: 97%;
   margin-left: 10px;
 }
 #progress-bar {
@@ -492,7 +515,7 @@ h3 {
   position: absolute;
   top: 39px;
   width: 100%;
-  /* margin-left: 8px; */
+  margin-left: 4px;
 }
 
 #progress-steps {
@@ -522,9 +545,8 @@ h3 {
 }
 
 .inner-circle {
-  width: 10px;
-  height: 10px;
-  background-color: white;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   margin: 0 auto;
   position: absolute;
