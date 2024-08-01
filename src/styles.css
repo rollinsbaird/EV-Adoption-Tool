@@ -21,6 +21,10 @@ rect {
   font-family: sans-serif;
 }
 
+.more:hover {
+  color: #5b6fcc;
+}
+
 html,
 body,
 .wrapper,
