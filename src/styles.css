@@ -289,6 +289,10 @@ main svg {
   font-size: 34px;
 }
 
+.sidebar {
+  z-index: 4;
+}
+
 .sidebar .text-container,
 .close-sidebar,
 .dropdown-container {

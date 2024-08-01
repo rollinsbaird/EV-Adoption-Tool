@@ -538,7 +538,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
           .style("position", "absolute")
           .style("top", "200px")
           .style("left", "790px")
-          .style("z-index", "1")
+          .style("z-index", "3")
           .on('click', () => { openSidebar() });
     
   // Initial chart update
