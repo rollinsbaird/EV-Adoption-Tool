@@ -550,8 +550,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
     svg.selectAll("#draggable").remove();
     tooltip.style("display", "none");
     
-    const initial_xPos = 0
-    // const initial_xPos = x(new Date("2033-01-01T05:00:00.000Z"))
+    const initial_xPos = x(new Date("2033-01-01T05:00:00.000Z"))
 
     const verticalLine = svg.append("line")
       .attr("id", "draggable")
@@ -588,7 +587,6 @@ d3.csv("src/vehicle registration.csv").then(data => {
         const d1 = data[i];
         const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         const xPos = x(d.date);
-        console.log(xPos)
 
         // Update the line position
         verticalLine.attr("x1", xPos).attr("x2", xPos);
@@ -615,7 +613,7 @@ d3.csv("src/vehicle registration.csv").then(data => {
     listeningRect.call(drag);
   
     // Initialize tooltip values for year 2033
-    d3.select(".more").style("left", initial_xPos + 205 + "px").style("top", "162px");
+    d3.select(".more").style("left", initial_xPos * 1.0234 + 205 + "px").style("top", "162px");
 
     initial_d = {
       "date": "2033-01-01T06:00:00.000Z",
